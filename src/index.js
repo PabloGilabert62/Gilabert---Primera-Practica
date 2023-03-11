@@ -1,7 +1,7 @@
 import "dotenv/config"
 import express  from "express"
 import socket  from "socket.io"
-import getManagerMessage from "./dao/daoManager"
+import getManagerMessage from "./dao/daoManager.js"
 
 const app = express()
 const managerMessage = new getManagerMessage()
