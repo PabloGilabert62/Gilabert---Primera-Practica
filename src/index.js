@@ -1,10 +1,10 @@
 import "dotenv/config"
 import express  from "express"
-import socket  from "socket.io"
+import { Server } from "socket.io"
 import getManagerMessage from "./dao/daoManager.js"
 
 const app = express()
-const managerMessage = new getManagerMessage()
+const managerMessage = getManagerMessage()
 
 //Midlewares
     app.use(express.json())
@@ -17,15 +17,17 @@ const managerMessage = new getManagerMessage()
 //
 
 // IO
-    const io = socket(server)
+    const io = new Server(server)
     io.on("connection", (socket) => {
-        socket.on("messages", info => {
-            managerMessage.addElements([info]).then(() => {
-                managerMessage.getElements().then((messages) => {
-                    console.log(messages)
-                    socket.emit("All messages", messages)
-                })
-            })
+        socket.on("messages", () => {
+            managerMessage.addElements()
+            try{
+                managerMessage.getElements()
+                console.log(messages)
+                socket.emit("All messages", messages)
+            } catch (error) {
+                console.log("Error --> " + error)
+            }
         })
     })
 //
