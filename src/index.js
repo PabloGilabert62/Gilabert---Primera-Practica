@@ -4,7 +4,6 @@ import { __dirname } from "./path.js"
 import {engine} from "express-handlebars"
 import express from "express"
 import { Server } from "socket.io"
-import { getManagerMessages } from "./dao/daoManager.js"
 import chatRouter from "./routes/chatRouter.js"
 import homeRouter from "./routes/homeRouter.js"
 
@@ -24,18 +23,14 @@ import homeRouter from "./routes/homeRouter.js"
     app.set("views", path.resolve(__dirname, "./views"))
 //
 
-// IO
+// IO Connections
     const io = new Server(server)
-    io.on("connection", async (socket) => {
-        socket.on("message", async (info) => {
-            const data = await getManagerMessages()
-            const managerMessage = new data.ManagerMessageMongoDB
-            managerMessage.addElements([info]).then(() => {
-                managerMessage.getElements().then((messages) => {
-                    console.log(messages)
-                    socket.emmit("allMessages", messages)
-                })
-            })
+    const mensajes = []
+    io.on("connection", (socket) => {
+        console.log("Clience conectado")
+        socket.on("mensaje", info => {
+            mensajes.push(info)
+            io.emit("mensajesLogs", mensajes)
         })
     })
 //
