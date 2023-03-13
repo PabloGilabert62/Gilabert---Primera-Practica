@@ -6,6 +6,7 @@ import express from "express"
 import { Server } from "socket.io"
 import chatRouter from "./routes/chatRouter.js"
 import homeRouter from "./routes/homeRouter.js"
+import productsRouter from "./routes/productsRouter.js"
 
 // SERVER
     const app = express()
@@ -39,4 +40,5 @@ import homeRouter from "./routes/homeRouter.js"
     app.use("/", express.static(__dirname + "/public"))
     app.use("/", homeRouter)
     app.use("/chat", chatRouter)
+    app.use("/products", productsRouter)
 //

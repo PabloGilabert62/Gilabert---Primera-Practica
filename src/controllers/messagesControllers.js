@@ -1,5 +1,5 @@
 class Mensajes {
-    mensajes = 
+  mensajes = 
     [
       {
         "email": "pablo@hotmail.com",
@@ -20,7 +20,7 @@ class Mensajes {
         "id": 3
       }
     ]
-  
+
     generateId() {
       const lastMessage = this.mensajes[this.mensajes.length - 1]
       console.log(lastMessage)

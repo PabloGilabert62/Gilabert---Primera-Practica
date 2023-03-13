@@ -1,9 +1,8 @@
 import managerMongoDB from "../../../db/managerMongoDB.js"
 
 const schema = {
-    name: {type:String, require:true, max:50},
-    email: {type:String, require:true, max:50},
-    message: {type:String, require:true}
+    user: {type:String, require:true, max:50},
+    message: {type:String, require:true, max:100}
 }
 
 export class ManagerMessageMongoDB extends managerMongoDB {
@@ -12,4 +11,4 @@ export class ManagerMessageMongoDB extends managerMongoDB {
         //Own attributes
     }
     //Own methods
-} 
+}
