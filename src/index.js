@@ -26,12 +26,12 @@ import productsRouter from "./routes/productsRouter.js"
 
 // IO Connections
     const io = new Server(server)
-    const mensajes = []
+    const messages = []
     io.on("connection", (socket) => {
-        console.log("Clience conectado")
+        console.log("Client connected")
         socket.on("mensaje", info => {
-            mensajes.push(info)
-            io.emit("mensajesLogs", mensajes)
+            messages.push(info)
+            io.emit("mensajesLogs", messages)
         })
     })
 //
