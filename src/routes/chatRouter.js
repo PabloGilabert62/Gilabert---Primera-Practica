@@ -1,5 +1,5 @@
 import { Router } from "express"
-import messageModel from "../dao/MongoDB/models/Message.js"
+import { messageModel } from "../dao/MongoDB/models/Message.js" 
 
 const chatRouter = Router()
 
@@ -8,7 +8,7 @@ chatRouter.get("/", async (req, res) => {
         const messages = await messageModel.find()
         res.send({result: "succes", values: messages})
     } catch (error) {
-        res.send("Error in users: " + error.message)
+        res.send("Error in users --> " + error.message)
     }
 })
 
@@ -16,7 +16,7 @@ chatRouter.post("/", async (req, res) => {
     try {
         const {user, message} = req.body
 
-        console.log(user, message)
+        console.log(`\nUser: ${user}\nMessage: ${message}`)
         
         const result = await messageModel.create({
             user,
